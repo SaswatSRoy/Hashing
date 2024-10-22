@@ -74,6 +74,49 @@ public class HashMapImplementation {
                 rehash();
             }
         }
+        public Node get(K key){
+            int bi=hashFunction(key);
+            int di=searchInLl(key,bi);
+
+            if(di==-1){
+                return  null;
+            }else{
+                return buckets[bi].get(di);
+            }
+        }
+
+        public boolean containsKey(K key){
+            int bi=hashFunction(key);
+            int di=searchInLl(key,bi);
+
+            return di != -1;
+        }
+
+        public V remove(K key){
+            int bi=hashFunction(key);
+            int di=searchInLl(key,bi);
+
+            if(di==-1){
+                return null;
+            }else{
+                Node node=buckets[bi].remove(di);
+                n--;
+                return node.value;
+            }
+        }
+
+        public boolean isEmpty(){
+            return n==0;
+        }
+        public ArrayList<K>keySet(){
+            ArrayList<K>keys=new ArrayList<>();
+            for (LinkedList<Node> ll : buckets) {
+                for (Node node : ll) {
+                    keys.add(node.key);
+                }
+            }
+            return keys;
+        }
 
     }
 }
